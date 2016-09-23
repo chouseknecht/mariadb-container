@@ -67,9 +67,9 @@
   with_fileglob:
     - "{{ role_path }}/files/*"
 
-- name: entrypoint script
-  copy:
-   src: "{{ role_path }}/scripts/entrypoint.sh"
+- name: Template entrypoint script
+  template:
+   src: entrypoint.sh.j2
    dest: /usr/bin/entrypoint.sh
    owner: mysql
    group: root
