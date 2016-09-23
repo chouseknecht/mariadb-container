@@ -1,20 +1,12 @@
-version: "1"
-defaults:
-  mariadb_database: mysql
-  mariadb_username: admin
-  mariadb_password: admin
-
-services:
-  mariadb:
-    image: centos:7
-    entrypoint: ['/usr/bin/entrypoint.sh']
-    working_dir: /
-    user: mysql
-    command: ['mysqld']        
-    environment:
-      - MARIADB_DATABASE={{ mariadb_database }}
-      - MARIADB_USERNAME={{ mariadb_username }}
-      - MARIADB_PASSWORD={{ mariadb_password }}
-      # If no root password is provided, a random one will be created and displayed in the log.
-      # - MARIADB_ROOT_PASSWORD=
-registries: {}
+mariadb:
+  image: centos:7
+  entrypoint: ['/usr/bin/entrypoint.sh']
+  working_dir: /
+  user: mysql
+  command: ['mysqld']        
+  environment:
+    - MARIADB_DATABASE=mysql
+    - MARIADB_USERNAME=admin
+    - MARIADB_PASSWORD=admin
+    # If no root password is provided, a random one will be created and displayed in the log.
+    # - MARIADB_ROOT_PASSWORD=
