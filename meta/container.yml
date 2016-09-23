@@ -10,3 +10,5 @@ mariadb:
     - MARIADB_PASSWORD=admin
     # If no root password is provided, a random one will be created and displayed in the log.
     # - MARIADB_ROOT_PASSWORD=
+  ports:
+    - 3306:3306
