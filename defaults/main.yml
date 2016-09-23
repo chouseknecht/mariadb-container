@@ -2,5 +2,5 @@
 # defaults file for mariadb-container-role
 
 mariadb_datadir: /var/lib/mysql
-mariadb_socket: /var/lib/msysql/mysql.sock
+mariadb_socket: /var/lib/mysql/mysql.sock
 mariadb_port: 3306
