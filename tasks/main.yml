@@ -1,0 +1,116 @@
+---
+# tasks file for mariadb-container-role
+
+- name: Add mariabd repo
+  yum_repository:
+    name: MariaDB
+    description: Repo for installing MariaDB packages 
+    baseurl: http://yum.mariadb.org/10.1/centos7-amd64
+    gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+    gpgcheck: 1
+    http_caching: none
+    keepcache: 0 
+
+- name: Install epel-release 
+  yum:
+    name: epel-release
+    state: latest
+
+- name: Install yum packages
+  yum:
+    name: "{{ item }}"
+    state: latest 
+  with_items:
+    - mariadb-server
+    - ansible 
+    - pwgen
+
+- name: Update all packages
+  yum:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Purge yum cache
+  command: yum clean all
+
+- name: Remove any unnecessary files 
+  file:
+    path: "{{ item }}" 
+    state: absent
+  with_items:
+    - /usr/bin/mysql_embedded
+    - /var/cache/yum
+
+- name: For mysql user add root group and change uid 
+  user:
+    name: mysql
+    groups: root
+    append: yes
+    uid: 1000
+
+- name: Create install dir
+  file:
+    path: /install
+    state: directory
+    owner: mysql
+    group: root
+    mode: 0777
+
+- name: Copy files to install
+  copy:
+    src: "{{ item }}"
+    dest: "/install/{{ item | basename }}" 
+    owner: mysql
+    group: mysql
+    mode: 0666
+  with_fileglob:
+    - "{{ role_path }}/files/*"
+
+- name: entrypoint script
+  copy:
+   src: "{{ role_path }}/scripts/entrypoint.sh"
+   dest: /usr/bin/entrypoint.sh
+   owner: mysql
+   group: root
+   mode: 0775
+
+- name: Template my.cnf.j2
+  template:
+   src: my.cnf.j2
+   dest: /etc/my.cnf
+   owner: root 
+   group: root
+   mode: 0664
+
+- name: Set permissions on /var/lib/mysql
+  file:
+    path: /var/lib/mysql
+    recurse: yes
+    state: directory
+    owner: mysql
+    group: root
+    mode: 0777   
+
+- name: Purge initial files from /var/lib/mysql
+  file:
+    path: /var/lib/mysql
+    state: absent
+
+- name: Recreate /var/lib/mysql with correct permissions
+  file:
+    path: /var/lib/mysql 
+    owner: mysql
+    group: root
+    mode: 0777
+    state: directory
+    recurse: yes
+
+- name: Set permissions on /var/log/mysql
+  file:
+    path: /var/log/mysql
+    recurse: yes
+    state: directory
+    owner: mysql
+    group: root
+    mode: 0777   

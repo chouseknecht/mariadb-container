@@ -1,0 +1,19 @@
+- name: Create mariadb database 
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    random_password: "{{ lookup('env', 'RANDOM_PASSWORD') }}" 
+    mariadb_dbname: "{{ lookup('env', 'MARIADB_DBNAME') | default('mysql') }}"
+    mariadb_username: "{{ lookup('env', 'MARIADB_USERNAME') | default('admin') }}"
+    mariadb_password: "{{ lookup('env', 'MARIADB_PASSWORD') | default('admin') }}"
+    mariadb_root_password: "{{ lookup('env', 'MARIADB_ROOT_PASSWORD') | default(random_password) }}"
+
+  tasks: 
+    - name: Template the SQL
+      template:
+        src: "{{ playbook_dir }}/createdb.sql.j2"
+        dest: "{{ playbook_dir }}/createdb.sql"
+    
+    - name: Show the root password
+      debug: msg="Set the root password to " 

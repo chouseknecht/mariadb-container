@@ -1,0 +1,6 @@
+-- Create the new database
+--
+CREATE DATABASE IF NOT EXISTS {{ mariadb_database }};
+CREATE USER '{{ mariadb_username }}'@'%' IDENTIFIED BY '{{ mariadb_password }}';
+GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'%';
+FLUSH PRIVILEGES;
