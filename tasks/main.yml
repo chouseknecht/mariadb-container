@@ -62,8 +62,8 @@
     src: "{{ item }}"
     dest: "/install/{{ item | basename }}" 
     owner: mysql
-    group: mysql
-    mode: 0666
+    group: root
+    mode: 0664
   with_fileglob:
     - "{{ role_path }}/files/*"
 
@@ -83,23 +83,14 @@
    group: root
    mode: 0664
 
-- name: Set permissions on /var/lib/mysql
-  file:
-    path: /var/lib/mysql
-    recurse: yes
-    state: directory
-    owner: mysql
-    group: root
-    mode: 0777   
-
 - name: Purge initial files from /var/lib/mysql
   file:
-    path: /var/lib/mysql
+    path: "{{ mariadb_datadir }}"
     state: absent
 
 - name: Recreate /var/lib/mysql with correct permissions
   file:
-    path: /var/lib/mysql 
+    path: "{{ mariadb_datadir }}"
     owner: mysql
     group: root
     mode: 0777
