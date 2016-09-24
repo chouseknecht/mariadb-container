@@ -84,13 +84,12 @@
    mode: 0664
 
 - name: Purge initial files from /var/lib/mysql
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_fileglob:
-    - "{{ mariadb_datadir }}/*"
+  command: rm -rf *
+  args:
+    chdir: "{{ mariadb_datadir }}"
+  when: mariadb_datadir and mariadb_datadir != '/'
 
-- name: Recreate /var/lib/mysql with correct permissions
+- name: Update /var/lib/mysql with correct permissions
   file:
     path: "{{ mariadb_datadir }}"
     owner: mysql
