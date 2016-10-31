@@ -103,13 +103,13 @@
 
 - name: Remove mariadb_datadir when mysql data exists 
   file: 
-    path: {{ mariadb_datadir }}
+    path: "{{ mariadb_datadir }}"
     state: absent   
   when: mysql_dir.stat.exists   
 
 - name: Recreate mariadb_datadir when mysql data exists
   file:
-    path: {{ mariadb_datadir }}
+    path: "{{ mariadb_datadir }}"
     state: directory
     owner: mysql
     group: root
