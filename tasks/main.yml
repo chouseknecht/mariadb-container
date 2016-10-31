@@ -96,27 +96,33 @@
    group: root
    mode: 0664
 
-- name: Purge initial files from /var/lib/mysql
-  command: rm -rf *
-  args:
-    chdir: "{{ mariadb_datadir }}"
-  when: mariadb_datadir and mariadb_datadir != '/'
+- name: Stat mysql data dir 
+  stat:
+    path: "{{ mariadb_datadir }}/mysql"  
+  register: mysql_dir
 
-- name: Show contents of mariadb_datadir
-  command: "ls -l {{ mariadb_datadir }}" 
-  register: output
+- name: Remove mariadb_datadir when mysql data exists 
+  file: 
+    path: {{ mariadb_datadir }}
+    state: absent   
+  when: mysql_dir.stat.exists   
 
-- name: Show contents of mariadb_datadir
-  debug:
-    var: output.stdout_lines 
+- name: Recreate mariadb_datadir when mysql data exists
+  file:
+    path: {{ mariadb_datadir }}
+    state: directory
+    owner: mysql
+    group: root
+    mode: 0777 
+  when: mysql_dir.stat.exists
 
-- name: Update /var/lib/mysql with correct permissions
+- name: Update mariadb_datadir with correct permissions
   file:
     path: "{{ mariadb_datadir }}"
+    state: directory
     owner: mysql
     group: root
     mode: 0777
-    state: directory
     recurse: yes
 
 - name: Set permissions on /var/log/mysql
