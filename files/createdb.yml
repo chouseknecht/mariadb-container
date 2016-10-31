@@ -23,7 +23,7 @@
 
     - name: Template create root 
       template:
-        src: "{{ playbook_dir }}/create_root.sql.j2"
+        src: create_root.sql.j2
         dest: "{{ playbook_dir }}/create_root.sql"
     
     - name: Execute create root
@@ -31,7 +31,7 @@
 
     - name: Template createdb
       template:
-        src: "{{ playbook_dir }}/createdb.sql.j2"
+        src: createdb.sql.j2
         dest: "{{ playbook_dir }}/createdb.sql"
     
     - name: Execute createdb 
@@ -39,7 +39,7 @@
 
     - name: Template grant.sql
       template:
-        src: "{{ playbook_dir }}/grant.sql.j2"
+        src: grant.sql.j2
         dest: "{{ playbook_dir }}/grant.sql"
 
     - name: Execute grants    
