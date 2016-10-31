@@ -1,6 +1,8 @@
 Role Name
 =========
 
+[![Build Status](https://travis-ci.org/chouseknecht/mariadb-container.svg?branch=master)](https://travis-ci.org/chouseknecht/mariadb-container)
+
 Use this role to add a mariadb service to your Ansible Container project. The first time you start the container, a root user and a database will be created. See Role Variables below for how to set the database name, username, password, and root password. Connect to the database on port 3306.
 
 Run the following commands to install the service:
