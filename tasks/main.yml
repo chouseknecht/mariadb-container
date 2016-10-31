@@ -25,12 +25,6 @@
     - ansible 
     - pwgen
 
-- name: Update all packages
-  yum:
-    name: "*"
-    state: latest
-    update_cache: yes
-
 - name: Purge yum cache
   command: yum clean all
 

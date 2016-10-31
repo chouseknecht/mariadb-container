@@ -1,5 +1,25 @@
 ---
-- hosts: localhost
-  remote_user: root
-  roles:
-    - mariadb-container-role
+- name: Test mariadb service   
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    host_ip: 0.0.0.0
+  tasks:
+    - name: Wait for service to be available
+      wait_for:
+        host: "{{ host_ip }}"
+        port: 3306
+        delay: 30
+        timeout: 120 
+
+    - name: Get the system date
+      command: date +%Y-%m-%d
+      register: system_date 
+      
+    - name: Get the mariadb date 
+      shell: "echo 'select current_date();' | mysql -u admin -padmin -h {{ host_ip }} mysql"
+      register: mariadb_date 
+  
+    - assert:
+        that: system_date.stdout in mariadb_date.stdout_lines 
