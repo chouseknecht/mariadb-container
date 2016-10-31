@@ -51,15 +51,34 @@
     group: root
     mode: 0777
 
-- name: Copy files to install
-  copy:
-    src: "{{ item }}"
-    dest: "/install/{{ item | basename }}" 
+- name: Crate template dir
+  file:
+    path: /install/templates
+    state: directory 
     owner: mysql
     group: root
-    mode: 0664
+    mode: 0777
+
+- name: Copy files to install
+  copy:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "/install/{{ item }}" 
+    owner: mysql
+    group: root
+    mode: 0666
+  with_items:
+    - inventory 
+    - createdb.yml
+
+- name: Copy templates to install/templates
+  copy:
+    src: "{{ item }}"
+    dest: "/install/templates/{{ item | basename }}" 
+    owner: mysql
+    group: root
+    mode: 0666
   with_fileglob:
-    - "{{ role_path }}/files/*"
+    - "{{ role_path }}/files/templates/*"
 
 - name: Template entrypoint script
   template:
