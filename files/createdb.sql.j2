@@ -3,6 +3,4 @@
 CREATE DATABASE IF NOT EXISTS {{ mariadb_database }};
 CREATE USER '{{ mariadb_username }}'@'%' IDENTIFIED BY '{{ mariadb_password }}';
 FLUSH PRIVILEGES;
-# GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'%';
-# GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'localhost';
-# GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'mariadb';
+GRANT ALL ON {{ mariadb_database }}.* TO {{ mariadb_username }}@'%';
