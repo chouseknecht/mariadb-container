@@ -12,3 +12,6 @@ mariadb:
     # - MARIADB_ROOT_PASSWORD=
   ports:
     - 3306:3306
+ 
+  # volumes:
+  # - <your data volume>:/var/lib/mysql:rw 
