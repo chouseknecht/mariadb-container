@@ -2,7 +2,7 @@
 --
 CREATE DATABASE IF NOT EXISTS {{ mariadb_database }};
 CREATE USER '{{ mariadb_username }}'@'%' IDENTIFIED BY '{{ mariadb_password }}';
-GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'%';
-GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'localhost';
-GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'mariadb';
 FLUSH PRIVILEGES;
+# GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'%';
+# GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'localhost';
+# GRANT ALL ON {{ mariadb_database }}.* TO '{{ mariadb_username }}'@'mariadb';

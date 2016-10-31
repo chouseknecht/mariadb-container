@@ -37,10 +37,10 @@
     - name: Execute createdb 
       shell: cat {{ playbook_dir }}/createdb.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
 
-    - name: Remove .sql files
-      file: path="{{ item }}" state=absent
-      with_fileglob:
-        - /install/*.sql
+    # - name: Remove .sql files
+    #  file: path="{{ item }}" state=absent
+    #  with_fileglob:
+    #    - /install/*.sql
 
     - name: Show the root password
       debug: msg="Set the root password to {{ mariadb_root_password }}"
