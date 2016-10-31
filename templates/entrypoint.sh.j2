@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 if [ -z "${MARIADB_DATABASE}" ]; then
     MARIADB_DATABASE=mysql
 fi
@@ -12,4 +14,4 @@ if [ ! -d "{{ mariadb_datadir }}/${MARIADB_DATABASE}" ]; then
     cd -
 fi
 
-"$@"
+exec "$@"
