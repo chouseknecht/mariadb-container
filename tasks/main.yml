@@ -102,6 +102,14 @@
     chdir: "{{ mariadb_datadir }}"
   when: mariadb_datadir and mariadb_datadir != '/'
 
+- name: Show contents of mariadb_datadir
+  command: "ls -l {{ mariadb_datadir }}" 
+  register: output
+
+- name: Show contents of mariadb_datadir
+  debug:
+    var: output.stdout_lines 
+
 - name: Update /var/lib/mysql with correct permissions
   file:
     path: "{{ mariadb_datadir }}"
