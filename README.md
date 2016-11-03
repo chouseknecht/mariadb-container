@@ -24,6 +24,8 @@ During the `build` process, if a *mysql* directory exists within the data direct
 Role Variables
 --------------
 
+Set the following environment variables in container.yml:
+
 MARIADB_DATABASE
 > Name of the database. The first time the image is used it will creare a new database with this name. Defaults to `mysql`.
 
@@ -35,6 +37,14 @@ MARIADB_PASSWORD
 
 MARIADB_ROOT_PASSWORD
 > Password for the `root` user. If a password is not supplied, a random password will be created and displayed the first time the container is started.
+
+The following variables are set in defaults/main.yml and can be overriden at execution time:
+
+```
+mariadb_datadir: /var/lib/mysql
+mariadb_socket: /var/lib/mysql/mysql.sock
+mariadb_port: 3306
+```
 
 Dependencies
 ------------
