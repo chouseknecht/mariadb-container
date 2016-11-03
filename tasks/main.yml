@@ -51,7 +51,7 @@
     group: root
     mode: 0777
 
-- name: Crate template dir
+- name: Create template dir
   file:
     path: /install/templates
     state: directory 
