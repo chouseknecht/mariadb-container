@@ -22,11 +22,10 @@
     state: latest 
   with_items:
     - mariadb-server
-    - ansible 
     - pwgen
 
-- name: Purge yum cache
-  command: yum clean all
+#- name: Purge yum cache
+#  command: yum clean all
 
 - name: Remove any unnecessary files 
   file:
@@ -120,6 +119,9 @@
     group: root
     mode: 0775
 
-- name: Include database init
-  include: database-init.yml
+#- name: Include database init
+#  include: database-init.yml
+#  become_method: su
+#  become_user: mysql
+
 
