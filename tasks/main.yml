@@ -39,6 +39,7 @@
 - name: For mysql user add root group and change uid 
   user:
     name: mysql
+    group: root
     groups: root
     append: yes
     uid: 1000
@@ -97,34 +98,18 @@
    group: root
    mode: 0664
 
-- name: Stat mysql data dir 
-  stat:
-    path: "{{ mariadb_datadir }}/mysql"  
-  register: mysql_dir
-
-- name: Remove mariadb_datadir when mysql data exists 
+- name: Remove mariadb_datadir
   file: 
     path: "{{ mariadb_datadir }}"
     state: absent   
-  when: mysql_dir.stat.exists   
 
-- name: Recreate mariadb_datadir when mysql data exists
+- name: Recreate mariadb_datadir
   file:
     path: "{{ mariadb_datadir }}"
     state: directory
     owner: mysql
     group: root
-    mode: 0777 
-  when: mysql_dir.stat.exists
-
-- name: Update mariadb_datadir with correct permissions
-  file:
-    path: "{{ mariadb_datadir }}"
-    state: directory
-    owner: mysql
-    group: root
-    mode: 0777
-    recurse: yes
+    mode: 0775 
 
 - name: Set permissions on /var/log/mysql
   file:
@@ -135,16 +120,6 @@
     group: root
     mode: 0777   
 
-- name: Change mysql primary group 
-  user:
-    name: mysql
-    group: root 
-
-- name: Remove /var/lib/mysql
-  file:
-    path: /var/lib/mysql
-    state: absent
-
 - name: Create /var/lib/mysql
   file:
     path: /var/lib/mysql
@@ -152,4 +127,7 @@
     owner: mysql
     group: root
     mode: 0775
+
+- name: Include database init
+  include: database-init.yml
 
