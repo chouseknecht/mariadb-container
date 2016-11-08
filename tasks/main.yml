@@ -152,5 +152,3 @@
     group: root
     mode: 0775
 
-- name: Set ownership of /
-  command: chown mysql:root /
