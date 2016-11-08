@@ -58,7 +58,7 @@
 
 - name: Show the root password
   debug: msg="Set the root password to {{ mariadb_root_password }}"
-  when: mariadb_root_password == random_password 
+  when: mariadb_root_password == randompw.stdout 
 
 - name: Kill the background process
   shell: kill -s TERM {{ mysql_pid.stdout }}
