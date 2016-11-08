@@ -69,6 +69,7 @@
   with_items:
     - inventory 
     - createdb.yml
+    - ansible.cfg
 
 - name: Copy templates to install/templates
   copy:
