@@ -133,3 +133,21 @@
     owner: mysql
     group: root
     mode: 0777   
+
+- name: Change mysql primary group 
+  user:
+    name: mysql
+    group: root 
+
+- name: Remove /var/lib/mysql
+  file:
+    path: /var/lib/mysql
+    state: absent
+
+- name: Create /var/lib/mysql
+  file:
+    path: /var/lib/mysql
+    owner: mysql
+    group: root
+    mode: 0775
+

@@ -12,7 +12,7 @@
   tasks: 
 
     - name: Init the database
-      command: mysql_install_db --datadir="/var/lib/mysql" --rpm
+      command: mysql_install_db --datadir="/var/lib/mysql"
    
     - name: Start the server in the background
       shell: mysqld & >/dev/null 2>&1 && echo $!
