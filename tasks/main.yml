@@ -121,7 +121,5 @@
 
 - name: Include database init
   include: database-init.yml
-  become_method: su
-  become_user: mysql
 
 

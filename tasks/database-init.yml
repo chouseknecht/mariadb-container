@@ -36,7 +36,7 @@
   command: mysql_install_db --datadir="{{ mariadb_datadir }}"
    
 - name: Start the server in the background
-  shell: mysqld & >/dev/null 2>&1 && echo $!
+  shell: mysqld --user=root & >/dev/null 2>&1 && echo $!
   register: mysql_pid
 
 - name: Wait for the database to be ready
