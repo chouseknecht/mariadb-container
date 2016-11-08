@@ -31,7 +31,7 @@
     dest: /install/grant.sql
 
 - name: Init the database
-  command: mysql_install_db --datadir="/var/lib/mysql"
+  command: mysql_install_db --datadir="{{ mariadb_datadir }}"
    
 - name: Start the server in the background
   shell: mysqld & >/dev/null 2>&1 && echo $!

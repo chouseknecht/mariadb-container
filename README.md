@@ -19,7 +19,7 @@ Data Directory
 --------------
 The default data directory is */var/lib/mysql*. If you want to store the database outside of the container, which is generally a good idea, mount a host path or a named volume to this path. Otherwise, the database will be destroyed whenever the container is destroyed.
 
-During the `build` process, if a *mysql* directory exists within the data directory, the data directory will be destroyed. The is done to remove the default database created during the install of the MariaDB. If you are wanting to mount a pre-existing database, mount it after running the `build` command. 
+*WARNING:* During the `build` process, anything in the data directory will be destroyed, so be very carefule, if you're attempting to mount a pre-existing database. You'll want to do that post build. 
 
 Role Variables
 --------------
