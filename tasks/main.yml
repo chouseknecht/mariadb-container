@@ -147,6 +147,7 @@
 - name: Create /var/lib/mysql
   file:
     path: /var/lib/mysql
+    state: directory
     owner: mysql
     group: root
     mode: 0775
