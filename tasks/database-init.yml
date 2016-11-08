@@ -7,6 +7,29 @@
     mariadb_password: "{{ lookup('env', 'MARIADB_PASSWORD') | default('admin', true) }}"
     mariadb_root_password: "{{ lookup('env', 'MARIADB_ROOT_PASSWORD') | default(random_password, true) }}"
 
+- name: Create install dir
+  file:
+    path: /install
+    state: directory
+    owner: mysql
+    group: root
+    mode: 0777
+
+- name: Template createdb
+  template:
+    src: createdb.sql.j2
+    dest: /install/createdb.sql
+    
+- name: Template create root 
+  template:
+    src: create_root.sql.j2
+    dest: /install/create_root.sql
+
+- name: Template grant.sql
+  template:
+    src: grant.sql.j2
+    dest: /install/grant.sql
+
 - name: Init the database
   command: mysql_install_db --datadir="/var/lib/mysql"
    
@@ -17,34 +40,19 @@
 - name: Wait for the database to be ready
   wait_for: port=3306 timeout=30  
 
-- name: Template create root 
-  template:
-    src: create_root.sql.j2
-    dest: "{{ playbook_dir }}/create_root.sql"
-    
 - name: Execute create root
-  shell: cat {{ playbook_dir }}/create_root.sql | mysql --protocol=socket -uroot
+  shell: cat /install/create_root.sql | mysql --protocol=socket -uroot
 
-- name: Template createdb
-  template:
-    src: createdb.sql.j2
-    dest: "{{ playbook_dir }}/createdb.sql"
-    
 - name: Execute createdb 
-  shell: cat {{ playbook_dir }}/createdb.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
-
-- name: Template grant.sql
-  template:
-    src: grant.sql.j2
-    dest: "{{ playbook_dir }}/grant.sql"
+  shell: cat /install/createdb.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
 
 - name: Execute grants    
-  shell: cat {{ playbook_dir }}/grant.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
+  shell: cat /grant.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
      
-- name: Remove .sql files
-  file: path="{{ item }}" state=absent
-  with_fileglob:
-  - /install/*.sql
+- name: Remove SQL files
+  file:
+    path: /install
+    state: absent
 
 - name: Show the root password
   debug: msg="Set the root password to {{ mariadb_root_password }}"

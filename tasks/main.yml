@@ -44,43 +44,35 @@
     append: yes
     uid: 1000
 
-- name: Create install dir
-  file:
-    path: /install
-    state: directory
-    owner: mysql
-    group: root
-    mode: 0777
+#- name: Create template dir
+#  file:
+#    path: /install/templates
+#    state: directory 
+#    owner: mysql
+#    group: root
+#    mode: 0777
 
-- name: Create template dir
-  file:
-    path: /install/templates
-    state: directory 
-    owner: mysql
-    group: root
-    mode: 0777
+#- name: Copy files to install
+#  copy:
+#    src: "{{ role_path }}/files/{{ item }}"
+#    dest: "/install/{{ item }}" 
+#    owner: mysql
+#    group: root
+#    mode: 0666
+#  with_items:
+#    - inventory 
+#    - createdb.yml
+#    - ansible.cfg
 
-- name: Copy files to install
-  copy:
-    src: "{{ role_path }}/files/{{ item }}"
-    dest: "/install/{{ item }}" 
-    owner: mysql
-    group: root
-    mode: 0666
-  with_items:
-    - inventory 
-    - createdb.yml
-    - ansible.cfg
-
-- name: Copy templates to install/templates
-  copy:
-    src: "{{ item }}"
-    dest: "/install/templates/{{ item | basename }}" 
-    owner: mysql
-    group: root
-    mode: 0666
-  with_fileglob:
-    - "{{ role_path }}/files/templates/*"
+#- name: Copy templates to install/templates
+#  copy:
+#    src: "{{ item }}"
+#    dest: "/install/templates/{{ item | basename }}" 
+#    owner: mysql
+#    group: root
+#    mode: 0666
+#  with_fileglob:
+#    - "{{ role_path }}/files/templates/*"
 
 - name: Template entrypoint script
   template:
