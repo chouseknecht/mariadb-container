@@ -63,3 +63,16 @@
 - name: Kill the background process
   shell: kill -s TERM {{ mysql_pid.stdout }}
 
+- name: Fix data file permissions
+  command: "chown -R mysql:root {{ mariadb_datadir }}"
+
+- name: Fix data file permissions
+  command: chmod 664 $(find . -type f)  
+  args:
+    chdir: "{{ mariadb_datadir }}"
+
+- name: Fix data file permissions
+  command: chmod 775 $(find . -type d) 
+  args:
+    chdir: "{{ mariadb_datadir }}"
+
