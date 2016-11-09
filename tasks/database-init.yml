@@ -49,7 +49,7 @@
   shell: cat /install/createdb.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
 
 - name: Execute grants    
-  shell: cat /grant.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
+  shell: cat /install/grant.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
      
 #- name: Remove SQL files
 #  file:
