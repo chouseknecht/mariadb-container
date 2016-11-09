@@ -41,9 +41,17 @@ MARIADB_ROOT_PASSWORD
 The following variables are set in defaults/main.yml and can be overriden at execution time:
 
 ```
+# Set the path to mysql data files
 mariadb_datadir: /var/lib/mysql
+
+# Set the location of the Unix socket file
 mariadb_socket: /var/lib/mysql/mysql.sock
+
+# Set the port on which mysqld listens. 
 mariadb_port: 3306
+
+# Set to 'no' during development to speed yum package installs
+mariadb_clean_yum_cache: yes
 ```
 
 Dependencies
