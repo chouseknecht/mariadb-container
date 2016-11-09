@@ -1,4 +1,4 @@
 --
 -- Grant access on the new database
 --
-GRANT ALL ON {{ mariadb_database }}.* to {{ mariadb_username }}@'%';
+GRANT ALL ON {{ mariadb_database }}.* to {{ mariadb_username }}@'%' IDENTIFIED BY '{{ mariadb_password }}';

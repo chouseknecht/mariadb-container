@@ -51,14 +51,13 @@
 - name: Execute grants    
   shell: cat /grant.sql | mysql --protocol=socket -uroot -p"{{ mariadb_root_password }}"
      
-- name: Remove SQL files
-  file:
-    path: /install
-    state: absent
+#- name: Remove SQL files
+#  file:
+#    path: /install
+#    state: absent
 
 - name: Show the root password
   debug: msg="Set the root password to {{ mariadb_root_password }}"
-  when: mariadb_root_password == randompw.stdout 
 
 - name: Kill the background process
   shell: kill -s TERM {{ mysql_pid.stdout }}
