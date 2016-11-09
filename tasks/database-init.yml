@@ -67,12 +67,12 @@
   command: "chown -R mysql:root {{ mariadb_datadir }}"
 
 - name: Fix data file permissions
-  command: chmod 664 $(find . -type f)  
+  shell: chmod 664 $(find . -type f)  
   args:
     chdir: "{{ mariadb_datadir }}"
 
 - name: Fix data file permissions
-  command: chmod 775 $(find . -type d) 
+  shell: chmod 775 $(find . -type d) 
   args:
     chdir: "{{ mariadb_datadir }}"
 
