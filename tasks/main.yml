@@ -104,5 +104,5 @@
     group: root
     mode: 0664
   with_items:
-  - "{{ role_path }}/files/*" 
+  - "*" 
 
