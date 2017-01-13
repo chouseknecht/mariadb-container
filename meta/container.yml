@@ -1,9 +1,9 @@
 mariadb:
   image: centos:7
-  entrypoint: ['/usr/bin/entrypoint.sh']
+  entrypoint: [/usr/bin/entrypoint.sh]
   working_dir: /
   user: mysql
-  command: ['mysqld']        
+  command: [/usr/bin/init, mysqld]        
   environment:
     - MARIADB_DATABASE=mysql
     - MARIADB_USERNAME=admin
@@ -11,7 +11,7 @@ mariadb:
     # If no root password is provided, a random one will be created and displayed in the log.
     # - MARIADB_ROOT_PASSWORD=
   ports:
-    - 3306:3306
+  - 3306:3306
  
   # volumes:
   # - <your data volume>:/var/lib/mysql:rw 

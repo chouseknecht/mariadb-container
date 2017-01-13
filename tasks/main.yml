@@ -23,6 +23,8 @@
   with_items:
     - mariadb-server
     - pwgen
+    - ansible
+    - nss_wrapper
 
 - name: Purge yum cache
   command: yum clean all
@@ -35,6 +37,14 @@
   with_items:
     - /usr/bin/mysql_embedded
     - /var/cache/yum
+
+- name: Install dumb init
+  get_url:
+    url: https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64
+    dest: /usr/bin/dumb-init
+    owner: root
+    group: root
+    mode: 0775
 
 - name: For mysql user add root group and change uid 
   user:
@@ -62,16 +72,8 @@
 
 - name: Remove mariadb_datadir
   file: 
-    path: "{{ mariadb_datadir }}"
+    path: /var/lib/mysql 
     state: absent   
-
-- name: Recreate mariadb_datadir
-  file:
-    path: "{{ mariadb_datadir }}"
-    state: directory
-    owner: mysql
-    group: root
-    mode: 0775 
 
 - name: Set permissions on /var/log/mysql
   file:
@@ -82,14 +84,25 @@
     group: root
     mode: 0777   
 
-- name: Create /var/lib/mysql
+- name: Create directories
   file:
-    path: /var/lib/mysql
+    path: "{{ item }}"
     state: directory
     owner: mysql
     group: root
     mode: 0775
+  with_items:
+  - /var/lib/mysql
+  - /setup
+  - /var/lib/mysql
 
-- name: Include database init
-  include: database-init.yml
+- name: Copy startup files
+  copy:
+    src: "{{ item }}"
+    dest: /setup/
+    owner: mysql
+    group: root
+    mode: 0664
+  with_items:
+  - "{{ role_path }}/files/*" 
 
