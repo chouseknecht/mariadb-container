@@ -103,6 +103,6 @@
     owner: mysql
     group: root
     mode: 0664
-  with_items:
-  - "*" 
+  with_fileglob:
+  - * 
 
