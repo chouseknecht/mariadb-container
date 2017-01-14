@@ -30,6 +30,9 @@ script:
   - echo "Installing and testing git+https://github.com/${TRAVIS_REPO_SLUG},${TRAVIS_COMMIT}"
   - ansible-container install git+https://github.com/${TRAVIS_REPO_SLUG},${TRAVIS_COMMIT}
 
+  # Update the port mapping
+  - sed -i -e "s/3306:3306/3333:3306/" ansible/container.yml
+
   # Build the service image
   - ansible-container build
 
