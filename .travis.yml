@@ -32,7 +32,7 @@ script:
 
   # Update the port mapping
   - sed -i -e "s/3306/3333:3306/" ansible/container.yml
-  - sed -i -e "s/ports:/expose:/" ansible/container.yml
+  - sed -i -e "s/expose:/ports:/" ansible/container.yml
 
   # Build the service image
   - ansible-container build
