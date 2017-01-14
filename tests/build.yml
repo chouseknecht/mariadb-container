@@ -23,8 +23,14 @@
   - name: Set the port to something other than 3306 for travis
     lineinfile:
       dest: ansible/container.yml
-      regexp: 3306:3306
+      regexp: '\- 3306'
       line: '    - 3333:3306'
+      
+  - name: Set the port to something other than 3306 for travis
+    lineinfile:
+      dest: ansible/container.yml
+      regexp: 'expose\:' 
+      line: '    ports:'
       
   - name: Build the project
     shell: ansible-container --debug build 2>&1 | tee -a ./build.out
