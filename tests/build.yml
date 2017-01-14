@@ -21,7 +21,10 @@
     shell: "ansible-container install git+https://github.com/chouseknecht/mariadb-container.git,$(git rev-parse HEAD) | tee ./build.out"
 
   - name: Set the port to something other than 3306 for travis
-    shell: sed -i -e "s/3306:3306/3333:3306/" ansible/container.yml
+    lineinfile:
+      dest: ansible/container.yml
+      regexp: 3306:3306
+      line: 3333:3306 
       
   - name: Build the project
     shell: ansible-container --debug build 2>&1 | tee -a ./build.out
