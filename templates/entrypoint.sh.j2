@@ -19,7 +19,7 @@ if [ -z "${MARIADB_DATABASE}" ]; then
     MARIADB_DATABASE=mysql
 fi
 
-if [ ! -d /var/lib/mysql/mysql ]; then
+if [ ! -d /var/lib/mysql/${ MARIADB_DATABASE} ]; then
     cd /setup
     ansible-playbook -i inventory dbinit.yml
 fi
