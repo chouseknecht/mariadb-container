@@ -60,5 +60,5 @@
 
     - name: Show the root password
       debug: msg="Set the root password to {{ mariadb_root_password }}"
-      when: mariadb_root_password == randompw
+      when: mariadb_root_password == randompw.stdout
     
