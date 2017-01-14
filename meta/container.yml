@@ -3,7 +3,7 @@ mariadb:
   entrypoint: [/usr/bin/entrypoint.sh]
   working_dir: /
   user: mysql
-  command: [/usr/bin/init, mysqld]        
+  command: [/usr/bin/dumb-init, mysqld]        
   environment:
     - MARIADB_DATABASE=mysql
     - MARIADB_USERNAME=admin
