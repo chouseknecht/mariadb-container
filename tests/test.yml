@@ -22,7 +22,7 @@
     - name: Get the mariadb date 
       command: >
         docker exec \
-        ansible_mariadb_1 /bin/bash -c "echo 'select current_date();' | /usr/bin/mysql -u admin -pfoo --port 3306 -h 0.0.0.0"
+        ansible_mariadb_1 /bin/bash -c "echo 'select current_date();' | /usr/bin/mysql -u admin -padmin --port 3306 -h 0.0.0.0"
       register: mariadb_date 
 
     - assert:
