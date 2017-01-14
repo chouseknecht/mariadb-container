@@ -1,6 +1,4 @@
 ---
 # defaults file for mariadb-container-role
 
-mariadb_socket: /var/lib/mysql/mysql.sock
-mariadb_port: 3306
 mariadb_clean_yum_cache: yes
