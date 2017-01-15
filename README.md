@@ -26,22 +26,22 @@ Role Variables
 
 Set the following environment variables in container.yml:
 
-MARIADB_DATABASE
-> Name of the database. The first time the container starts a new database with this name will be created. Defaults to `mysql`.
+MARIADB_DATABASE: mysql
+> Name of the database. The first time the container starts a new database with this name will be created.
 
-MARIADB_USERNAME
-> Database username. Defaults to admin.
+MARIADB_USERNAME: admin
+> Database username.
 
-MARIADB_PASSWORD
-> Database password. Defaults to admin.
+MARIADB_PASSWORD: admin
+> Database password.
 
 MARIADB_ROOT_PASSWORD
-> Password for the `root` user. If a password is not supplied, a random password will be created, and displayed in the log the first time the container is started.
+> Password for the `root` user. If a password is not supplied, a random password will be created, and displayed in the log the first time the container starts.
 
 The following variables are set in defaults/main.yml, and can be overriden at execution time:
 
-mariadb_clean_yum_cache
-> Set to *no* during development to speed yum package installs. Defaults to *yes*.
+mariadb_clean_yum_cache: yes
+> Set to *no* during development to speed yum package installs.
 
 Deploying to OpenShift
 ----------------------
