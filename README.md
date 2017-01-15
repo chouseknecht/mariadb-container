@@ -38,12 +38,10 @@ MARIADB_PASSWORD
 MARIADB_ROOT_PASSWORD
 > Password for the `root` user. If a password is not supplied, a random password will be created, and displayed in the log the first time the container is started.
 
-The following variables are set in defaults/main.yml and can be overriden at execution time:
+The following variables are set in defaults/main.yml, and can be overriden at execution time:
 
-```
-# Set to 'no' during development to speed yum package installs
-mariadb_clean_yum_cache: yes
-```
+mariadb_clean_yum_cache
+> Set to *no* during development to speed yum package installs. Defaults to *yes*.
 
 Deploying to OpenShift
 ----------------------
