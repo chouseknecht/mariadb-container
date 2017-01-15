@@ -108,9 +108,9 @@ $ cd ansible
 $ ansible-playbook shipit-openshift.yml 
 ```
 
-And here's a video showing the deployment, and providing a look at the runnig service from inside the OpenShift console:
+Click on the following image to view a video of the deployment, and a look at the runnig service from inside the OpenShift console:
 
-[]
+[![Deploy Mariadb](https://github.com/chouseknecht/mariadb-container/blob/images/images/deploy-mariadb.png)](https://youtu.be/GngApPQx0t4)
 
 Dependencies
 ------------
