@@ -1,9 +1,8 @@
 [![Build Status](https://travis-ci.org/chouseknecht/mariadb-container.svg?branch=master)](https://travis-ci.org/chouseknecht/mariadb-container)
 
-Role Name
-=========
+# Role Name
 
-Use this role to add a mariadb service to your Ansible Container project. During the build process, a root user, database, and database user will be created. See Role Variables below for how to set these values. Connect to the database on exposed port 3306.
+Use this role to add a mariadb service to your Ansible Container project. 
 
 Run the following commands to install the service:
 
@@ -14,9 +13,20 @@ $ cd myproject
 # Install the service
 $ ansible-container install chouseknecht.mariadb-container
 ```
+### Database init
 
-Data Directory
---------------
+The first time you start a container, a new database will be created along with a database user, and a root user. See Role Variables below for how to set the database name, the username and password, and the root user password.
+
+### Database access
+
+Access the database on exposed port 3306.
+
+### Mariadb Version
+
+By default version 10.2.0 will be installed. View avaible version at the [mariadb yum index](http://yum.mariadb.org/), and update the *mariadb_version* variable with the version to be installed.
+
+### Data Directory
+
 The data directory is */var/lib/mysql*. If you want to store the database outside of the container, which is generally a good idea, mount a host path or a named volume to this path. Otherwise, the database will be destroyed whenever the container is destroyed.
 
 *NOTE*: During the `build` process, anything in the data directory will be destroyed, so be careful when attempting to mount a pre-existing database.
@@ -24,7 +34,7 @@ The data directory is */var/lib/mysql*. If you want to store the database outsid
 Role Variables
 --------------
 
-Set the following environment variables in container.yml:
+Set the following environment variables in `container.yml`:
 
 MARIADB_DATABASE: mysql
 > Name of the database. The first time the container starts a new database with this name will be created.
@@ -38,7 +48,10 @@ MARIADB_PASSWORD: admin
 MARIADB_ROOT_PASSWORD
 > Password for the `root` user. If a password is not supplied, a random password will be created, and displayed in the log the first time the container starts.
 
-The following variables are set in defaults/main.yml, and can be overriden at execution time:
+The following variables can be set in `main.yml`:
+
+mariadb_vesion: 10.2.0
+> Set the version of mariadb server to intall. See the [mariadb yum index](http://yum.mariadb.org/) for available versions.
 
 mariadb_clean_yum_cache: yes
 > Set to *no* during development to speed yum package installs.

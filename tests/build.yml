@@ -18,7 +18,8 @@
     command: ansible-container init
     
   - name: Install this role with latest commit   
-    shell: "ansible-container install git+https://github.com/chouseknecht/mariadb-container.git,$(git rev-parse HEAD) | tee ./build.out"
+    shell: >
+      ansible-container install git+$(git config --get remote.origin.url | sed 's/git\@/https:\/\//' | sed 's/github.com:/github.com\//'),$(git rev-parse HEAD) | tee ./build.out
 
   - name: Set the port to something other than 3306 for travis
     lineinfile:
