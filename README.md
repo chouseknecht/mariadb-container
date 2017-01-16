@@ -2,7 +2,7 @@
 
 # Role Name
 
-Use this role to add a mariadb service to your Ansible Container project. 
+Use this role to add a `mariadb` service to your Ansible Container project. 
 
 Run the following commands to install the service:
 
@@ -21,7 +21,7 @@ The first time you start a container, a new database will be created along with 
 
 Access the database on exposed port 3306.
 
-### Mariadb version
+### MariaDB version
 
 By default version 10.2.0 will be installed. View avaible version at the [mariadb yum index](http://yum.mariadb.org/), and update *mariadb_version* in `main.yml` with the version to be installed.
 
@@ -121,7 +121,7 @@ $ ansible-playbook shipit-openshift.yml
 
 Click on the following image to view a video of the deployment, and a look at the runnig service from inside the OpenShift console:
 
-[![Deploy Mariadb](https://github.com/chouseknecht/mariadb-container/blob/images/images/deploy-mariadb.png)](http://www.youtube.com/watch?v=93YJGK-6nEo)
+[![Deploy MariaDB](https://github.com/chouseknecht/mariadb-container/blob/images/images/deploy-mariadb.png)](http://www.youtube.com/watch?v=93YJGK-6nEo)
 
 Dependencies
 ------------
