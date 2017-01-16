@@ -1,4 +1,6 @@
 ---
 # defaults file for mariadb-container-role
 
+mariadb_version: 10.2.0
 mariadb_clean_yum_cache: yes
+
