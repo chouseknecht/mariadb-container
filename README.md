@@ -10,6 +10,9 @@ Run the following commands to install the service:
 # Set the working directory to your Ansible Container project root
 $ cd myproject
 
+# A conductor container is required to run install, so if you haven't already, build the conductor image
+$ ansible-container build
+
 # Install the service
 $ ansible-container install chouseknecht.mariadb-container
 ```
@@ -66,7 +69,7 @@ The following is a suggested `container.yml` to use when deploying the mariadb s
 
 ```
 mariadb:
-    image: centos:7
+    from: 'centos:7'
     entrypoint: [/usr/bin/entrypoint.sh]
     working_dir: /
     user: mysql

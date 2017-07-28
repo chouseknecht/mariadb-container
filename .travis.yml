@@ -1,6 +1,7 @@
 language: python
 dist: trusty
 sudo: required
+group: edge
 
 services:
   - docker
@@ -8,12 +9,10 @@ services:
 before_install:
   - sudo apt-add-repository 'deb http://archive.ubuntu.com/ubuntu trusty-backports universe'
   - sudo apt-get update -qq
-  - sudo apt-get install -y -o Dpkg::Options::="--force-confold" --force-yes docker-engine
 
 install:
-  # Install the latest Ansible Container and Ansible
-  - pip install git+https://github.com/ansible/ansible-container.git
-  - pip install ansible
+- pip install -e git+https://github.com/ansible/ansible-container.git@develop#egg=ansible_container[docker]
+- pip install ansible
 
 script:
   # Make sure docker is functioning
