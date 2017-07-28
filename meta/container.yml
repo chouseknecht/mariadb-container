@@ -1,5 +1,5 @@
 mariadb:
-  image: centos:7
+  from: 'centos:7'
   entrypoint: [/usr/bin/entrypoint.sh]
   working_dir: /
   user: mysql
