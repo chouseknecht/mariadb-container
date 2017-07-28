@@ -35,8 +35,8 @@ script:
   - echo "Installing and testing git+https://github.com/${TRAVIS_REPO_SLUG},${TRAVIS_COMMIT}"
   - ansible-container install git+https://github.com/${TRAVIS_REPO_SLUG},${TRAVIS_COMMIT}
 
-  # Copy the testing container.yml 
-  - cp tests/container.test container.yml
+  # Use the testing container.yml 
+  - cp container.test container.yml
 
   # Build the service image
   - ansible-container build
