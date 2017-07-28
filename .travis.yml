@@ -28,6 +28,9 @@ script:
   # Build the conductor image
   - ansible-container build
 
+  # Create a roles directory
+  - mkdir roles
+
   # Install the role into the project
   - echo "Installing and testing git+https://github.com/${TRAVIS_REPO_SLUG},${TRAVIS_COMMIT}"
   - ansible-container install git+https://github.com/${TRAVIS_REPO_SLUG},${TRAVIS_COMMIT}
