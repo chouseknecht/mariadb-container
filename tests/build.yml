@@ -4,7 +4,7 @@
   gather_facts: no
   tasks:
 
-  - name: Remove ansible directory and any .out files 
+  - name: Remove stale files 
     file:
       path: "{{ item }}"
       state: absent
@@ -16,22 +16,21 @@
 
   - name: Init the ansible directory 
     command: ansible-container init
+
+  - name: Create roles path
+    file:
+      path: roles
+      state: directory
+
+  - name: Build the conductor
+    shell: ansible-container build 
     
   - name: Install this role with latest commit   
     shell: >
       ansible-container install git+$(git config --get remote.origin.url | sed 's/git\@/https:\/\//' | sed 's/github.com:/github.com\//'),$(git rev-parse HEAD) | tee ./build.out
 
-  - name: Set the port to something other than 3306 for travis
-    lineinfile:
-      dest: container.yml
-      regexp: '\- 3306'
-      line: '    - 3333:3306'
-      
-  - name: Set the port to something other than 3306 for travis
-    lineinfile:
-      dest: container.yml
-      regexp: 'expose\:' 
-      line: '    ports:'
+  - name: Copy the container.yml file
+    command: cp contianer.test container.yml
       
   - name: Build the project
     shell: ansible-container --debug build 2>&1 | tee -a ./build.out

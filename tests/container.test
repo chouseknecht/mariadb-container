@@ -1,0 +1,16 @@
+version: '2'
+settings:
+
+  conductor:
+    base: centos:7
+
+  project_name: tests
+
+services:
+  mariadb:
+    roles:
+    - chouseknecht.mariadb-container
+    ports:
+    - 3333:3306
+
+registries: {}
