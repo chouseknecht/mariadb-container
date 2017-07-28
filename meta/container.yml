@@ -1,17 +1,16 @@
-mariadb:
-  from: 'centos:7'
-  entrypoint: [/usr/bin/entrypoint.sh]
-  working_dir: /
-  user: mysql
-  command: [/usr/bin/dumb-init, mysqld]        
-  environment:
-    - MARIADB_DATABASE=mysql
-    - MARIADB_USERNAME=admin
-    - MARIADB_PASSWORD=admin
-    # If no root password is provided, a random one will be created and displayed in the log.
-    # - MARIADB_ROOT_PASSWORD=
-  expose:
+from: 'centos:7'
+entrypoint: [/usr/bin/entrypoint.sh]
+working_dir: /
+user: mysql
+command: [/usr/bin/dumb-init, mysqld]        
+environment:
+  - MARIADB_DATABASE=mysql
+  - MARIADB_USERNAME=admin
+  - MARIADB_PASSWORD=admin
+  #If no root password is provided, a random one will be created and displayed in the log.
+  #- MARIADB_ROOT_PASSWORD=
+expose:
   - 3306
- 
-  # volumes:
-  # - <your data volume>:/var/lib/mysql:rw 
+
+#volumes:
+#- <your data volume>:/var/lib/mysql:rw 
