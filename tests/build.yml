@@ -9,7 +9,7 @@
       path: "{{ item }}"
       state: absent
     with_items:
-      - ./ansible
+      - container.yml
       - build.out
       - playbook.out
       - symfony
@@ -23,13 +23,13 @@
 
   - name: Set the port to something other than 3306 for travis
     lineinfile:
-      dest: ansible/container.yml
+      dest: container.yml
       regexp: '\- 3306'
       line: '    - 3333:3306'
       
   - name: Set the port to something other than 3306 for travis
     lineinfile:
-      dest: ansible/container.yml
+      dest: container.yml
       regexp: 'expose\:' 
       line: '    ports:'
       

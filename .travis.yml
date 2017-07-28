@@ -33,14 +33,14 @@ script:
   - ansible-container install git+https://github.com/${TRAVIS_REPO_SLUG},${TRAVIS_COMMIT}
 
   # Update the port mapping
-  - sed -i -e "s/3306/3333:3306/" ansible/container.yml
-  - sed -i -e "s/expose:/ports:/" ansible/container.yml
+  - sed -i -e "s/3306/3333:3306/" container.yml
+  - sed -i -e "s/expose:/ports:/" container.yml
 
   # Build the service image
   - ansible-container build
 
   # Start the service
-  - ansible-container run -d
+  - ansible-container run
   - docker ps
 
   # Run tests
